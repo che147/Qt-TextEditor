@@ -1,0 +1,25 @@
+# Qt 构建产物
+build/
+dist/
+debug/
+release/
+*.o
+*.obj
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+.qmake.stash
+Makefile
+Makefile.*
+*.pro.user
+*.pro.user.*
+
+# 可执行文件与库
+*.exe
+*.dll
+
+# 系统与编辑器杂项
+Thumbs.db
+desktop.ini
+*.autosave
