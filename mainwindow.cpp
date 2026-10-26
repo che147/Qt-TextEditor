@@ -508,17 +508,18 @@ void MainWindow::applyCharFormat(const QTextCharFormat &format)
 
 void MainWindow::chooseFont()
 {
-    bool ok = false;
     QFont current = ui->editor->currentCharFormat().font();
     if (current.family().isEmpty() || current.pointSize() <= 0)
         current = ui->editor->font();
 
-    const QFont font = QFontDialog::getFont(&ok, current, this, tr("选择字体"));
-    if (!ok)
+    QFontDialog dialog(current, this);
+    dialog.setOption(QFontDialog::DontUseNativeDialog, true);
+    dialog.setWindowTitle(tr("选择字体"));
+    if (dialog.exec() != QDialog::Accepted)
         return;
 
     QTextCharFormat format;
-    format.setFont(font);
+    format.setFont(dialog.selectedFont());
     applyCharFormat(format);
 }
 
@@ -528,33 +529,39 @@ void MainWindow::chooseFontColor()
     if (!current.isValid())
         current = palette().color(QPalette::Text);
 
-    const QColor color = QColorDialog::getColor(current, this, tr("选择字体颜色"));
-    if (!color.isValid())
+    QColorDialog dialog(current, this);
+    dialog.setOption(QColorDialog::DontUseNativeDialog, true);
+    dialog.setWindowTitle(tr("选择字体颜色"));
+    if (dialog.exec() != QDialog::Accepted)
         return;
 
     QTextCharFormat format;
-    format.setForeground(color);
+    format.setForeground(dialog.selectedColor());
     applyCharFormat(format);
 }
 
 void MainWindow::chooseFontBackgroundColor()
 {
-    const QColor color = QColorDialog::getColor(Qt::yellow, this, tr("选择字体背景色"));
-    if (!color.isValid())
+    QColorDialog dialog(Qt::yellow, this);
+    dialog.setOption(QColorDialog::DontUseNativeDialog, true);
+    dialog.setWindowTitle(tr("选择字体背景色"));
+    if (dialog.exec() != QDialog::Accepted)
         return;
 
     QTextCharFormat format;
-    format.setBackground(color);
+    format.setBackground(dialog.selectedColor());
     applyCharFormat(format);
 }
 
 void MainWindow::chooseEditorBackgroundColor()
 {
-    const QColor color = QColorDialog::getColor(Qt::white, this, tr("选择编辑器背景色"));
-    if (!color.isValid())
+    QColorDialog dialog(Qt::white, this);
+    dialog.setOption(QColorDialog::DontUseNativeDialog, true);
+    dialog.setWindowTitle(tr("选择编辑器背景色"));
+    if (dialog.exec() != QDialog::Accepted)
         return;
 
-    ui->editor->setEditorBackgroundColor(color);
+    ui->editor->setEditorBackgroundColor(dialog.selectedColor());
 }
 
 void MainWindow::setWordWrapEnabled(bool enabled)
