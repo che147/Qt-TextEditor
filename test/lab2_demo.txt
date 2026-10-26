@@ -1,0 +1,5 @@
+Qt 实验二：简单文本编辑器
+第一行：验证行号与当前行高亮
+第二行：Hello Qt, 小牛文本编辑
+第三行：查找与替换测试 target
+第四行：target target end
